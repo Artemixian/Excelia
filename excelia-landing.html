@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excelia | Sua Assistente de Excel com IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F0FDF4', 100: '#DCFCE7', 200: '#BBF7D0',
+                            300: '#86EFAC', 400: '#4ADE80', 500: '#22C55E',
+                            600: '#16A34A', 700: '#15803D', 800: '#166534', 900: '#14532D',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">XL</span>
+                    </div>
+                    <span class="font-bold text-xl">Excelia</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="hover:text-green-600">Recursos</a>
+                    <a href="#pricing" class="hover:text-green-600">Preços</a>
+                    <a href="#demo" class="hover:text-green-600">Demo</a>
+                </div>
+                <a href="#" class="px-4 py-2 bg-green-600 text-white rounded-lg">Começar</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="pt-32 pb-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-5xl sm:text-6xl font-extrabold mb-6">
+                Sua <span class="gradient-text">Assistente de Excel</span><br>com Inteligência Artificial
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+                Corrija fórmulas, gere automações e aprenda Excel avançado em português.
+            </p>
+            <div class="flex gap-4 justify-center">
+                <a href="#demo" class="px-8 py-4 bg-green-600 text-white rounded-xl font-semibold">Experimentar</a>
+                <a href="#features" class="px-8 py-4 bg-gray-100 dark:bg-gray-800 rounded-xl font-semibold">Ver Recursos</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
