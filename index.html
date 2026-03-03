@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excelia | Sua Assistente de Excel com IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.49/Tone.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#F0FDF4',
+                            100: '#DCFCE7',
+                            200: '#BBF7D0',
+                            300: '#86EFAC',
+                            400: '#4ADE80',
+                            500: '#22C55E',
+                            600: '#16A34A',
+                            700: '#15803D',
+                            800: '#166534',
+                            900: '#14532D',
+                        }
+                    },
+                    fontFamily: {
+                        mono: ['JetBrains Mono', 'monospace'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #16A34A 0%, #22C55E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .cell-pattern {
+            background-image: linear-gradient(#E5E7EB 1px, transparent 1px),
+            linear-gradient(90deg, #E5E7EB 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        
+        .dark .cell-pattern {
+            background-image: linear-gradient(#374151 1px, transparent 1px),
+            linear-gradient(90deg, #374151 1px, transparent 1px);
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease-out;
+        }
+        
+        .scroll-reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors duration-300">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white/80 dark:bg-gray-900/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">XL</span>
+                    </div>
+                    <span class="font-bold text-xl">Excelia</span>
+                </div>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#features" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">Recursos</a>
+                    <a href="#pricing" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">Preços</a>
+                    <a href="#demo" class="text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400 transition">Demo</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition">
+                        <span id="theme-icon">🌙</span>
+                    </button>
+                    <a href="#" class="hidden sm:block px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition">
+                        Começar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <div class="absolute inset-0 cell-pattern opacity-30"></div>
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 mb-8 scroll-reveal">
+                    <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                    <span class="text-sm font-medium text-green-700 dark:text-green-400">Novo: Suporte a VBA e Power Query</span>
+                </div>
+                <h1 class="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 scroll-reveal">
+                    Sua <span class="gradient-text">Assistente de Excel</span><br>com Inteligência Artificial
+                </h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto scroll-reveal">
+                    Corrija fórmulas, gere automações e aprenda Excel avançado em português. 
+                    Tudo com a ajuda da nossa IA especializada.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center scroll-reveal">
+                    <a href="#demo" class="px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-semibold text-lg transition shadow-lg shadow-green-500/25">
+                        Experimentar Grátis
+                    </a>
+                    <a href="#features" class="px-8 py-4 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-white rounded-xl font-semibold text-lg transition">
+                        Ver Recursos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-gray-50 dark:bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4 scroll-reveal">Recursos Inteligentes</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg scroll-reveal">Tudo que você precisa para dominar o Excel</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🧮</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Correção de Fórmulas</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Identifique e corrija erros em fórmulas complexas automaticamente com explicações detalhadas.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🤖</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Automação com VBA</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Gere macros VBA e automatize tarefas repetitivas com comandos em linguagem natural.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">📊</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Dashboards</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Crie dashboards profissionais com gráficos interativos e relatórios automatizados.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-orange-100 dark:bg-orange-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">📚</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Aprendizado Guiado</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Aprenda Excel avançado com tutoriais interativos personalizados ao seu nível.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-red-100 dark:bg-red-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🔄</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">Power Query</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Transforme e limpe dados automaticamente com consultas inteligentes em português.</p>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <div class="w-12 h-12 bg-teal-100 dark:bg-teal-900/30 rounded-xl flex items-center justify-center mb-4">
+                        <span class="text-2xl">🇧🇷</span>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">100% em Português</h3>
+                    <p class="text-gray-600 dark:text-gray-400">Interface e assistente completamente em português, sem necessidade de traduzir fórmulas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section id="demo" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4 scroll-reveal">Experimente Agora</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg scroll-reveal">Digite uma fórmula com erro e veja a mágica acontecer</p>
+            </div>
+            <div class="max-w-3xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden scroll-reveal">
+                <div class="bg-gray-100 dark:bg-gray-900 px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center gap-2">
+                    <div class="flex gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <span class="ml-4 text-sm text-gray-500">excelia_demo.xlsx</span>
+                </div>
+                <div class="p-6">
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Sua fórmula:</label>
+                        <input type="text" id="formula-input" placeholder="Ex: =SOMA(A1:A10" class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white font-mono focus:ring-2 focus:ring-green-500 focus:border-transparent outline-none">
+                    </div>
+                    <button id="analyze-btn" class="w-full py-3 bg-green-600 hover:bg-green-700 text-white rounded-lg font-semibold transition flex items-center justify-center gap-2">
+                        <span>🔍</span> Analisar Fórmula
+                    </button>
+                    <div id="result-area" class="mt-4 hidden">
+                        <div class="p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                            <p class="text-red-800 dark:text-red-400 font-mono text-sm mb-2" id="error-display"></p>
+                            <p class="text-gray-700 dark:text-gray-300" id="suggestion-display"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="py-20 bg-gray-50 dark:bg-gray-800/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold mb-4 scroll-reveal">Planos e Preços</h2>
+                <p class="text-gray-600 dark:text-gray-400 text-lg scroll-reveal">Escolha o plano ideal para você</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Gratuito</h3>
+                    <p class="text-4xl font-bold mb-4">R$ 0<span class="text-lg text-gray-500 font-normal">/mês</span></p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> 10 correções/mês</li>
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> Fórmulas básicas</li>
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> Suporte por email</li>
+                    </ul>
+                    <button class="w-full py-3 border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg font-semibold transition">Começar</button>
+                </div>
+                <div class="bg-gradient-to-br from-green-600 to-green-700 p-8 rounded-2xl shadow-xl text-white relative scroll-reveal">
+                    <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULAR</div>
+                    <h3 class="text-lg font-semibold mb-2">Pro</h3>
+                    <p class="text-4xl font-bold mb-4">R$ 29<span class="text-lg text-green-200 font-normal">/mês</span></p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2"><span>✓</span> Correções ilimitadas</li>
+                        <li class="flex items-center gap-2"><span>✓</span> Geração VBA</li>
+                        <li class="flex items-center gap-2"><span>✓</span> Power Query</li>
+                        <li class="flex items-center gap-2"><span>✓</span> Suporte prioritário</li>
+                    </ul>
+                    <button class="w-full py-3 bg-white text-green-700 hover:bg-gray-100 rounded-lg font-semibold transition">Assinar</button>
+                </div>
+                <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-700 scroll-reveal">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Empresarial</h3>
+                    <p class="text-4xl font-bold mb-4">R$ 99<span class="text-lg text-gray-500 font-normal">/mês</span></p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> Tudo do Pro</li>
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> Até 10 usuários</li>
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> API disponível</li>
+                        <li class="flex items-center gap-2 text-gray-600 dark:text-gray-400"><span class="text-green-500">✓</span> Suporte 24/7</li>
+                    </ul>
+                    <button class="w-full py-3 border-2 border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 rounded-lg font-semibold transition">Contato</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center gap-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">XL</span>
+                    </div>
+                    <span class="font-bold text-xl text-white">Excelia</span>
+                </div>
+                <p class="text-sm">© 2025 Excelia. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            themeIcon.textContent = '☀️';
+        } else {
+            document.documentElement.classList.remove('dark');
+            themeIcon.textContent = '🌙';
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+                themeIcon.textContent = '☀️';
+            } else {
+                localStorage.theme = 'light';
+                themeIcon.textContent = '🌙';
+            }
+        });
+        
+        // Scroll Reveal
+        const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -50px 0px' };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+        
+        // Formula Demo
+        document.getElementById('analyze-btn').addEventListener('click', function() {
+            const input = document.getElementById('formula-input').value;
+            const resultArea = document.getElementById('result-area');
+            const errorDisplay = document.getElementById('error-display');
+            const suggestionDisplay = document.getElementById('suggestion-display');
+            
+            if (!input) {
+                alert('Digite uma fórmula primeiro!');
+                return;
+            }
+            
+            resultArea.classList.remove('hidden');
+            
+            if (input.includes('SOMA') && !input.endsWith(')')) {
+                errorDisplay.textContent = '❌ Erro: Parêntese não fechado';
+                suggestionDisplay.innerHTML = '<strong>Correção:</strong> Adicione ")" no final da fórmula. <br><code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">' + input + ')</code>';
+            } else if (input.includes('MÉDIA') || input.includes('MEDIA')) {
+                errorDisplay.textContent = '⚠️ Aviso: Função em português';
+                suggestionDisplay.innerHTML = '<strong>Dica:</strong> No Excel em português, use <code class="bg-gray-100 dark:bg-gray-700 px-2 py-1 rounded">MÉDIA</code> em vez de AVERAGE.';
+            } else {
+                errorDisplay.textContent = '✅ Fórmula válida!';
+                suggestionDisplay.textContent = 'Esta fórmula parece correta. Excelia pode te ajudar a otimizá-la!';
+            }
+        });
+    </script>
+</body>
+</html>
