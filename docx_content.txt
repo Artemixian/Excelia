@@ -1,0 +1,26 @@
+# Excelia Content
+
+Conteúdo extraído de documentação do projeto.
+
+## Conceitos Principais
+
+- IA especializada em Excel
+- Correção automática de fórmulas
+- Geração de dashboards
+- Automação VBA
+- Auditoria inteligente
+
+## Público-Alvo
+
+- Analistas financeiros
+- Controllers
+- Profissionais de controlling
+- Empresas que usam Excel intensivamente
+
+## Diferenciais
+
+1. 100% em português brasileiro
+2. Treinada para contexto fiscal/contábil BR
+3. Interface inspirada no Excel
+4. Multi-agente especializado
+5. LGPD compliant
